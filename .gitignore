@@ -9,3 +9,4 @@ share/
 data/
 images/
 __pycache__
+*.swp
