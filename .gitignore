@@ -8,3 +8,4 @@ share/
 # other
 data/
 images/
+__pycache__

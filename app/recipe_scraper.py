@@ -2,6 +2,8 @@ import json
 
 from recipe_scrapers import scrape_me
 
+from image_scraper import download_image
+
 
 def get_recipes():
     recipes = []
@@ -27,9 +29,13 @@ def recipe_to_dict(scrape):
     return recipe
 
 
+def get_filename(recipe_dict):
+    return recipe_dict.get("title", "unknown").lower().replace(" ", "-")
+
+
 def write_to_file(recipe_dict):
     directory = "data"
-    filename = recipe_dict.get("title", "unknown").lower().replace(" ", "-")
+    filename = get_filename(recipe_dict)
     path = "{0}/{1}.json".format(directory, filename)
     with open(path, "w") as f:
         f.write(json.dumps(recipe_dict))
@@ -41,6 +47,7 @@ def main():
         scrape = scrape_me(recipe)
         recipe_dict = recipe_to_dict(scrape)
         write_to_file(recipe_dict)
+        download_image(get_filename(recipe_dict))
 
 
 if __name__ == "__main__":
