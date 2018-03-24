@@ -10,3 +10,4 @@ data/
 images/
 __pycache__
 *.swp
+*.bak

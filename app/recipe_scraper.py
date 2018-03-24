@@ -29,15 +29,18 @@ def recipe_to_dict(scrape):
     recipe["instructions"] = scrape.instructions()
     return recipe
 
+
 def get_file_type(image_url):
-    file_type = image_url[-4:]
-    print(file_type)
-    if "jpeg" == file_type:
-        return "jpeg"
-    elif ".jpg" == file_type:
-        return "jpg"
-    elif ".png" == file_type:
-        return "png"
+    if image_url:
+        file_type = image_url[-4:]
+        if "jpeg" == file_type:
+            return "jpeg"
+        elif ".jpg" == file_type:
+            return "jpg"
+        elif ".png" == file_type:
+            return "png"
+        else:
+            return ""
 
 
 def get_file_name(recipe_dict):
@@ -56,6 +59,7 @@ def main():
     recipes = get_recipes()
     for recipe in recipes:
         scrape = scrape_me(recipe)
+        print("scraping: {0}".format(scrape.title()))
         recipe_dict = recipe_to_dict(scrape)
         write_to_file(recipe_dict)
         image_url = find_image(recipe_dict.get("source"), scrape.host(), recipe_dict.get("title"))
